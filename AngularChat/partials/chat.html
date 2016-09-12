@@ -1,1 +1,42 @@
 <h3>hello world from main page!</h3>
+
+<div class="row" ng-controller="roomController">
+    <div class="col-md-4">
+        <label>Create new chat: <input type="checkbox" ng-model="showCreateRoomForm" ng-init="showCreateRoomForm=false"/></label>
+        <br/>
+        <form ng-if="showCreateRoomForm" class="animate-if">
+            <div class="form-group">
+                <label>
+                    Enter room name:
+                    <input class="form-control" type="text" ng-model="newRoomName" placeholder="Name"/>
+                </label>
+            </div>
+            <div class="form-group">
+                <label>Choose members:</label>
+                <select multiple class="form-control" ng-model="userArray" ng-options="user.name for user in users | availableUserFilter:currentId">
+                </select>
+            </div>
+            <pre>{{userArray | json}}</pre>
+            <button class="btn btn-warning" ng-click="(createRoom(newRoomName, userArray))">Save room</button>
+        </form>
+
+        <br>
+        <h5>Chats:</h5>
+        <ul>
+            <li ng-repeat="room in availableRooms()">
+                <p>Name: <span ng-click="">{{room.name}}</span></p>
+                <p>Members: <span>{{room.getMembersString()}}</span></p>
+                <p><button type="button" class="btn btn-warning btn-circle">{{room.getNotification(currentId)}}</button></p>
+                <a href="#" ng-click="unsubscribeFromRoom(room)">Unsubscribe</a>
+
+            </li>
+        </ul>
+
+    </div>
+    <div class="col-md-5">
+
+    </div>
+    <div class="col-md-3">
+
+    </div>
+</div>

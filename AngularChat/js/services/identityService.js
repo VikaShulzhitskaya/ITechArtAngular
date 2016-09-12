@@ -49,7 +49,6 @@ define(['app'], function (app) {
         this.resetIdentity = function () {
             registerId = null;
         }
-
     }
 
     

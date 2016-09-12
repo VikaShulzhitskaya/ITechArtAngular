@@ -15,6 +15,6 @@ require.config({
     }
 });
 
-require(['app', 'services', 'controllers'], function (app) {
+require(['app', 'services', 'controllers', 'filters'], function (app) {
     app.init();
 });

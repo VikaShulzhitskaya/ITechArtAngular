@@ -6,10 +6,10 @@ define(['app'], function (app) {
     'use strict';
 
     function UserService() {
-        var users = [];
+        this.users = [];
 
         this.getAllUsers = function () {
-            return angular.copy(users);
+            return this.users;
         };
 
         this.addUser = function (id, name) {
@@ -18,17 +18,23 @@ define(['app'], function (app) {
                 id : id,
                 name : name
             };
-            users.push(user);
+            this.users.push(user);
         };
 
         this.getUserNameById = function (id) {
-            for (var i = 0; i < users.length; i += 1){
-                if(users[i].id == id)
-                    return users[i].name;
+            for (var i = 0; i < this.users.length; i += 1){
+                if(this.users[i].id == id)
+                    return this.users[i].name;
             }
-        }
+        };
+        
+        this.getUserById = function (id) {
+            for (var i = 0; i < this.users.length; i += 1){
+                if(this.users[i].id == id)
+                    return this.users[i];
+            }
+        };
     }
 
-    
     app.service('userService', UserService);
 });
