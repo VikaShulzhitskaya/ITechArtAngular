@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style/site.css">
+
+
+    <title>Chat</title>
+</head>
+<body ng-cloak="chat">
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Chat</a>
+        </div>
+        <div class="navbar-collapse collapse" ng-controller="identityController">
+            <ul class="nav navbar-nav navbar-left">
+                <li>
+                    <a ui-sref="chat">Main page</a>
+                </li>
+            </ul>
+            <div class="navbar-form navbar-right" ng-show="getName()">
+                <label>Hello, <strong>{{showName}}</strong></label>
+                <div class="form-group">
+                    <button class="btn btn-danger" ng-click="logout()">Exit</button>
+                </div>
+            </div>
+            <div class="navbar-form navbar-right" ng-if="!getName()">
+                <a ui-sref="login">
+                    <button class="btn btn-success">Login</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="jumbotron">
+        <h1>Chatting with your friends!</h1>
+    </div>
+    <ui-view></ui-view>
+</div>
+
+
+<script src="node_modules/requirejs/require.js" data-main="js/main"></script>
+</body>
+</html>
