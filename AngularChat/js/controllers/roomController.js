@@ -21,10 +21,6 @@ define(['app'], function (app) {
             return roomService.getAvailableRoomByCurrentId($scope.currentId);
         };
         
-        $scope.notifyInfo = function (roomId) {
-            roomService.getNewNotificationCountByUserId(roomId, $scope.currentId);
-        };
-        
         $scope.users = userService.getAllUsers();
         
         $scope.unsubscribeFromRoom = function (room) {
@@ -38,9 +34,12 @@ define(['app'], function (app) {
             $scope.selectedRoom.readMessage(user);
         };
 
+        $scope.newMessageText = '';
+
         $scope.sendMessage = function (text) {
             var sender = userService.getUserById($scope.currentId);
             $scope.selectedRoom.addMessage(sender, text);
+            $scope.newMessageText = '';
         }
 
     }]);

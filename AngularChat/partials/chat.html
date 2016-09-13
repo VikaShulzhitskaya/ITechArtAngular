@@ -16,7 +16,6 @@
                 <select multiple class="form-control" ng-model="userArray" ng-options="user.name for user in users | availableUserFilter:currentId">
                 </select>
             </div>
-            <pre>{{userArray | json}}</pre>
             <button class="btn btn-warning" ng-click="(createRoom(newRoomName, userArray))">Save room</button>
         </form>
 
@@ -44,10 +43,10 @@
                         <dd>{{message.text}}</dd>
                     </dl>
                 </div>
-                <div class="panel-footer">
-                    <input type="text" ng-model="newMessageText">
+                <form class="panel-footer">
+                    <input type="text" ng-model="newMessageText"/>
                     <button class="btn" ng-click="sendMessage(newMessageText)">Send</button>
-                </div>
+                </form>
             </div>
         </div>
 

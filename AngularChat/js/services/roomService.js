@@ -41,7 +41,6 @@ define(['app'], function (app) {
             });
             index = this.users.indexOf(user);
             this.users.splice(index, 1);
-
         };
 
         this.addMessage = function (sender, message) {
@@ -82,8 +81,6 @@ define(['app'], function (app) {
             this.countOfNotification = 0;
         }
     }
-
-
 
     function roomService() {
         this.rooms = [];
