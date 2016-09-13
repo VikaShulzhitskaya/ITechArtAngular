@@ -24,19 +24,46 @@
         <h5>Chats:</h5>
         <ul>
             <li ng-repeat="room in availableRooms()">
-                <p>Name: <span ng-click="">{{room.name}}</span></p>
+                <p>Name: <span ng-click="selectRoom(room)">{{room.name}}</span></p>
                 <p>Members: <span>{{room.getMembersString()}}</span></p>
                 <p><button type="button" class="btn btn-warning btn-circle">{{room.getNotification(currentId)}}</button></p>
                 <a href="#" ng-click="unsubscribeFromRoom(room)">Unsubscribe</a>
-
             </li>
         </ul>
-
     </div>
     <div class="col-md-5">
+        <div ng-if="selectedRoom">
+            <h4>Messages: </h4>
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h5 class="panel-title">{{selectedRoom.name}}</h5>
+                </div>
+                <div class="panel-body fixed-panel">
+                    <dl ng-repeat="message in selectedRoom.messages">
+                        <dt>{{message.sender.name + ", "+ message.date}}</dt>
+                        <dd>{{message.text}}</dd>
+                    </dl>
+                </div>
+                <div class="panel-footer">
+                    <input type="text" ng-model="newMessageText">
+                    <button class="btn" ng-click="sendMessage(newMessageText)">Send</button>
+                </div>
+            </div>
+        </div>
+
 
     </div>
     <div class="col-md-3">
+        <form>
+            <div class="form-group">
+                <input type="search" ng-model="searchParam" placeholder="Search"/>
+                <ul>
+                    <li ng-repeat="room in availableRooms() | filter:searchParam as results">
+                        <span ng-click="selectRoom(room)">{{room.name}}</span>
+                    </li>
+                </ul>
+            </div>
+        </form>
 
     </div>
 </div>

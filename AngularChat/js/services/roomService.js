@@ -8,7 +8,10 @@ define(['app'], function (app) {
     function Message(sender, text) {
         this.sender = sender;
         this.text = text;
-        this.date = new Date();
+        this.date = (function () {
+            var now = new Date();
+            return now.getDate()+'-'+(now.getMonth()+1)+'-'+now.getFullYear()+' '+now.getHours()+':'+now.getMinutes();
+        })();
     }
 
     function Room(id, roomName) {
@@ -30,11 +33,10 @@ define(['app'], function (app) {
 
         this.removeUser = function (user) {
             var index;
-            this.notifications.forEach(function (item) {
+            this.notifications.forEach(function (item, i, arr) {
                 if(item.user == user){
-                    index = this.notifications.indexOf(item);
-
-                    this.notifications.splice(index, 1);
+                    index = arr.indexOf(item);
+                    arr.splice(index, 1);
                 }
             });
             index = this.users.indexOf(user);
@@ -45,7 +47,7 @@ define(['app'], function (app) {
         this.addMessage = function (sender, message) {
             this.messages.push(new Message(sender, message));
             this.notifications.forEach(function (item) {
-                if(item.user.name != sender){
+                if(item.user != sender){
                     item.addNotification();
                 }
             });

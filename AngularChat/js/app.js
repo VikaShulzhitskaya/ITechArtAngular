@@ -21,7 +21,7 @@ define(['angular', 'ui.router'], function (angular, uirouter) {
             authenticate: true
         }
 
-        $urlRouterProvider.otherwise('/login');
+        //$urlRouterProvider.otherwise('/login');
 
         $stateProvider.state(loginState);
         $stateProvider.state(chatState);

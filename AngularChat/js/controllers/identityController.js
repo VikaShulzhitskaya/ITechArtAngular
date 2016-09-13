@@ -22,7 +22,6 @@ define(['app'], function (app) {
                 $scope.loginInput = '';
                 $scope.password = '';
             }
-
         };
 
         $scope.login = function () {
