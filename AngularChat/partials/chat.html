@@ -11,12 +11,8 @@
                     <input class="form-control" type="text" ng-model="newRoomName" placeholder="Name"/>
                 </label>
             </div>
-            <div class="form-group">
-                <label>Choose members:</label>
-                <select multiple class="form-control" ng-model="userArray" ng-options="user.name for user in users | availableUserFilter:currentId">
-                </select>
-            </div>
-            <button class="btn btn-warning" ng-click="(createRoom(newRoomName, userArray))">Save room</button>
+            <available-user label-name="Choose members:" selected-array="userArray" users="users"></available-user>
+            <button class="btn btn-warning" ng-click="createRoom(newRoomName, userArray)">Save room</button>
         </form>
 
         <br>
@@ -24,9 +20,16 @@
         <ul>
             <li ng-repeat="room in availableRooms()">
                 <p>Name: <span ng-click="selectRoom(room)">{{room.name}}</span></p>
-                <p>Members: <span>{{room.getMembersString()}}</span></p>
-                <p><button type="button" class="btn btn-warning btn-circle">{{room.getNotification(currentId)}}</button></p>
+                <p>Members: <span>{{getMembers(room)}}</span></p>
+                <p><button type="button" class="btn btn-warning btn-circle">{{getNotifications(room)}}</button></p>
                 <a href="#" ng-click="unsubscribeFromRoom(room)">Unsubscribe</a>
+                <br/>
+                <label>Add members to this chat<input type="checkbox" ng-model="showAddMembersForm.condition"/></label>
+                <form ng-if="showAddMembersForm.condition" class="animate-if">
+                    <available-user label-name="Choose added members:" selected-array="addUserArray" users="users" room="room"></available-user>
+                    <button class="btn btn-info" ng-click="addMembersToRoom(room, addUserArray)">Add</button>
+                </form>
+
             </li>
         </ul>
     </div>
@@ -44,8 +47,8 @@
                     </dl>
                 </div>
                 <form class="panel-footer">
-                    <input type="text" ng-model="newMessageText"/>
-                    <button class="btn" ng-click="sendMessage(newMessageText)">Send</button>
+                    <input type="text" ng-model="newMessageText.text"/>
+                    <button class="btn" ng-click="sendMessage(newMessageText.text)">Send</button>
                 </form>
             </div>
         </div>

@@ -25,6 +25,14 @@ define(['app'], function (app) {
             return elem.name;
         }).join(', ');
         };
+        
+        this.getUserId = function () {
+            var ids = [];
+            this.users.forEach(function (item) {
+                ids.push(item.id);
+            });
+            return ids;
+        };
 
         this.addUser = function (user) {
             this.users.push(user);
@@ -115,7 +123,26 @@ define(['app'], function (app) {
         
         this.removeUserFromRoom = function (room, user) {
             room.removeUser(user);
+        };
+
+        this.getMembersStringInRoom = function (room) {
+            return room.getMembersString();
+        };
+
+        this.getNotificationsInRoom = function (room, userId) {
+            return room.getNotification(userId);
+        };
+        
+        this.getUserIdsInRoom = function (room) {
+            return room.getUserId();
+        };
+        
+        this.addMembersToRoom = function (room, newMembers) {
+            newMembers.forEach(function (newUser) {
+                room.addUser(newUser);
+            });
         }
+
     }
 
 

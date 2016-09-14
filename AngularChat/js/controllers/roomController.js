@@ -10,6 +10,8 @@ define(['app'], function (app) {
         $scope.selectedRoom = null;
 
         $scope.createRoom = function (newRoomName, userArray) {
+            if(!userArray)
+                userArray = [];
             var id = identityService.getIdentityId();
             var user = userService.getUserById(id);
             userArray.push(user);
@@ -34,12 +36,27 @@ define(['app'], function (app) {
             $scope.selectedRoom.readMessage(user);
         };
 
-        $scope.newMessageText = '';
+        $scope.newMessageText = {text: ''};
 
         $scope.sendMessage = function (text) {
             var sender = userService.getUserById($scope.currentId);
             $scope.selectedRoom.addMessage(sender, text);
-            $scope.newMessageText = '';
+            $scope.newMessageText.text = '';
+        };
+        
+        $scope.getMembers = function (room) {
+            return roomService.getMembersStringInRoom(room);
+        };
+        
+        $scope.getNotifications = function (room) {
+            return roomService.getNotificationsInRoom(room, $scope.currentId);
+        };
+
+        $scope.showAddMembersForm = {condition: false};
+        
+        $scope.addMembersToRoom = function (room, addedMembers) {
+            roomService.addMembersToRoom(room, addedMembers);
+            $scope.showAddMembersForm.condition = false;
         }
 
     }]);

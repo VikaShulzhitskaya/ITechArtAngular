@@ -5,10 +5,10 @@ define(['app'], function (app) {
     'use strict';
 
     app.filter('availableUserFilter', function () {
-        return function (users, currentUserId) {
+        return function (users, notAvailableUserIds) {
             var availableUsers = [];
             users.forEach(function (item) {
-                if(item.id != currentUserId){
+                if(notAvailableUserIds.indexOf(item.id) == -1){
                     availableUsers.push(item);
                 }
             });

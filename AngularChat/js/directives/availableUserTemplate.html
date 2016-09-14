@@ -1,0 +1,7 @@
+<div class="form-group">
+    <label>{{labelName}}</label>
+    <select multiple class="form-control"
+            ng-model="selectedArray"
+            ng-options="user.name for user in users | availableUserFilter:getNotAvailableUsers()">
+    </select>
+</div>

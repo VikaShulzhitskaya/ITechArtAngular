@@ -15,6 +15,6 @@ require.config({
     }
 });
 
-require(['app', 'services', 'controllers', 'filters'], function (app) {
+require(['app', 'services', 'controllers', 'filters', 'directives/avaibleUserDirective'], function (app) {
     app.init();
 });
