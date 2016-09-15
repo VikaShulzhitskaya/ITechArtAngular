@@ -1,0 +1,71 @@
+<h3>hello world from main page!</h3>
+
+<div class="row" ng-controller="roomController">
+    <div class="col-md-4">
+        <label>Create new chat: <input type="checkbox" ng-model="showCreateRoomForm" ng-init="showCreateRoomForm=false"/></label>
+        <br/>
+        <form ng-if="showCreateRoomForm" class="animate-if">
+            <div class="form-group">
+                <label>
+                    Enter room name:
+                    <input class="form-control" type="text" ng-model="newRoomName" placeholder="Name"/>
+                </label>
+            </div>
+            <available-user label-name="Choose members:" selected-array="userArray" users="users"></available-user>
+            <button class="btn btn-warning" ng-click="createRoom(newRoomName, userArray)">Save room</button>
+        </form>
+
+        <br>
+        <h5>Chats:</h5>
+        <ul>
+            <li ng-repeat="room in availableRooms()">
+                <p>Name: <span ng-click="selectRoom(room)">{{room.name}}</span></p>
+                <p>Members: <span>{{getMembers(room)}}</span></p>
+                <p><button type="button" class="btn btn-warning btn-circle">{{getNotifications(room)}}</button></p>
+                <a href="#" ng-click="unsubscribeFromRoom(room)">Unsubscribe</a>
+                <br/>
+                <label>Add members to this chat<input type="checkbox" ng-model="showAddMembersForm.condition"/></label>
+                <form ng-if="showAddMembersForm.condition" class="animate-if">
+                    <available-user label-name="Choose added members:" selected-array="addUserArray" users="users" room="room"></available-user>
+                    <button class="btn btn-info" ng-click="addMembersToRoom(room, addUserArray)">Add</button>
+                </form>
+
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-5">
+        <div ng-if="selectedRoom">
+            <h4>Messages: </h4>
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h5 class="panel-title">{{selectedRoom.name}}</h5>
+                </div>
+                <div class="panel-body fixed-panel">
+                    <dl ng-repeat="message in selectedRoom.messages">
+                        <dt>{{message.sender.name + ", "+ message.date}}</dt>
+                        <dd>{{message.text}}</dd>
+                    </dl>
+                </div>
+                <form class="panel-footer">
+                    <input type="text" ng-model="newMessageText.text"/>
+                    <button class="btn" ng-click="sendMessage(newMessageText.text)">Send</button>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="col-md-3">
+        <form>
+            <div class="form-group">
+                <input type="search" ng-model="searchParam" placeholder="Search"/>
+                <ul>
+                    <li ng-repeat="room in availableRooms() | filter:searchParam as results">
+                        <span ng-click="selectRoom(room)">{{room.name}}</span>
+                    </li>
+                </ul>
+            </div>
+        </form>
+
+    </div>
+</div>
